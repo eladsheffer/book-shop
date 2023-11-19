@@ -23,7 +23,7 @@ function App() {
   const maxPriceInput = useRef(null);
   const minRatingInput = useRef(null);
   const searchInput = useRef(null);
-  const filterText = useRef(null);
+  const filteredText = useRef(null);
   
 
   const [books, setBooks] = useState(jsonBooks);
@@ -75,7 +75,7 @@ function App() {
 
     closeAddModal();
     
-    if (!newBook.title.toLowerCase().includes(filterText.current.value))
+    if (!newBook.title.toLowerCase().includes(filteredText.current.value))
       return;
 
     let booksToDisplayCopy = [...booksToDisplay];
@@ -131,25 +131,20 @@ function App() {
   }
 
   const onChangeFilter = (e) => {
-    let booksToDisplayCopy = filterSearch(filterText.current.value);
+    let booksToDisplayCopy = filterSearch(filteredText.current.value);
     booksToDisplayCopy = sortBooksToDisplay(booksToDisplayCopy);
     setBooksToDisplay(booksToDisplayCopy);
   }
 
 
-  const filterSearch = (filterText) => {
+  const filterSearch = (filteredText) => {
 
     let booksToDisplayCopy;
-    if (filterText == "")
+    if (filteredText == "")
       booksToDisplayCopy = books;
-    else {
-      booksToDisplayCopy = [];
-      for (var i = 0; i < books.length; i++) {
-        if ((books[i].title.toLowerCase().includes(filterText))) {
-          booksToDisplayCopy.push(books[i]);
-        }
+      else {
+        booksToDisplayCopy = books.filter(book => book.title.toLowerCase().includes(filteredText.toLowerCase()));
       }
-    }
 
     return [...booksToDisplayCopy];
   }
@@ -198,7 +193,7 @@ function App() {
           <Image id='table' src="https://www.shutterstock.com/image-vector/list-sign-icon-content-view-600w-1866073021.jpg" width={50} height={50} onClick={view} />
         </Col>
         <Col sm="8">
-          <Form.Control inline ref={filterText} onChange={onChangeFilter} className="rounded-pill" type="text" placeholder="Filter by Text in Title and Details" />
+          <Form.Control inline ref={filteredText} onChange={onChangeFilter} className="rounded-pill" type="text" placeholder="Filter by Text in Title and Details" />
         </Col>
         <Col sm={3}>
           <Form.Check onChange={onChangeSort} defaultChecked inline type="radio" label="no sort" name="formHorizontalRadios" id="no=sort" />
