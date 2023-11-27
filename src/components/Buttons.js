@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Table, Card, Row, Col, Button, Modal, Form, Image } from 'react-bootstrap';
+import { Row, Col, Button, Modal, Form, Image } from 'react-bootstrap';
 
 
 function Buttons(props) {

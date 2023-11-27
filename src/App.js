@@ -12,9 +12,9 @@ class Book {
     this.googleId = bookInfo.id;
     this.title = bookInfo.volumeInfo.title;
     this.price = 100;
-    this.desc = bookInfo.volumeInfo.description != undefined ? bookInfo.volumeInfo.description : "";
-    this.rating = bookInfo.volumeInfo.averageRating != undefined ? bookInfo.volumeInfo.averageRating : 0;
-    this.imgUrl = bookInfo.volumeInfo.imageLinks.thumbnail != "" ? bookInfo.volumeInfo.imageLinks.thumbnail : "http://www.eco.ubookeducations.com/storage/bookImages/111111111111.png";
+    this.desc = bookInfo.volumeInfo.description !== undefined ? bookInfo.volumeInfo.description : "";
+    this.rating = bookInfo.volumeInfo.averageRating !== undefined ? bookInfo.volumeInfo.averageRating : 0;
+    this.imgUrl = bookInfo.volumeInfo.imageLinks.thumbnail !== "" ? bookInfo.volumeInfo.imageLinks.thumbnail : "http://www.eco.ubookeducations.com/storage/bookImages/111111111111.png";
   }
 }
 
@@ -50,7 +50,7 @@ function App() {
 
   const bookExists = (googleId) => {
     for (let i = 0; i < books.length; i++) {
-      if (books[i].googleId == googleId)
+      if (books[i].googleId === googleId)
         return true;
     }
     return false;
@@ -85,7 +85,7 @@ function App() {
   }
 
   const readBook = (bookData) => {
-    let book = books.find(book => book == bookData);
+    let book = books.find(book => book === bookData);
     book.price = bookData.price;
     setBooks(books);
     let booksToDisplayCopy = sortBooksToDisplay(booksToDisplay);
@@ -93,7 +93,7 @@ function App() {
   }
 
   const updateBook = (bookData) => {
-    let book = books.find(book => book == bookData);
+    let book = books.find(book => book === bookData);
     book.price = bookData.price;
     setBooks(books);
     let booksToDisplayCopy = sortBooksToDisplay(booksToDisplay);
@@ -103,12 +103,12 @@ function App() {
   const deleteBook = (bookData) => {
 
     let booksCopy = [...books];
-    let index = booksCopy.findIndex(book => book == bookData);
+    let index = booksCopy.findIndex(book => book === bookData);
     booksCopy.splice(index, 1);
     setBooks(booksCopy);
 
     booksCopy = [...booksToDisplay];
-    index = booksCopy.findIndex(book => book == bookData);
+    index = booksCopy.findIndex(book => book === bookData);
     booksCopy.splice(index, 1);
     setBooksToDisplay(booksCopy);
   }
@@ -140,7 +140,7 @@ function App() {
   const filterSearch = (filteredText) => {
 
     let booksToDisplayCopy;
-    if (filteredText == "")
+    if (filteredText === "")
       booksToDisplayCopy = books;
       else {
         booksToDisplayCopy = books.filter(book => book.title.toLowerCase().includes(filteredText.toLowerCase()));
